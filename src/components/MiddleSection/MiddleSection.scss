@@ -1,0 +1,7 @@
+.container {
+  .middle-section {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    padding: 0 3rem;
+  }
+}

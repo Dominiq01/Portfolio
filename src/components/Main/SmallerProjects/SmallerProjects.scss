@@ -1,0 +1,71 @@
+.smaller-projects {
+  position: relative;
+  padding: 3.2rem;
+  grid-column: 9 / 13;
+  border-right: 1px solid var(--gray);
+  border-left: 1px solid var(--gray);
+  overflow: auto;
+
+  @media (max-width: 1330px) {
+    grid-column: 1 / 13;
+    border-right: none;
+    border-top: 1px solid var(--gray);
+  }
+
+  @media (max-width: 840px) {
+    border-right: 1px solid var(--gray);
+    margin: 0 3rem;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../../assets/pattern.svg");
+    background-repeat: repeat;
+    background-position: center;
+    opacity: var(--pattern-opacity);
+    z-index: -1;
+  }
+
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--gray);
+  }
+
+  &__title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    margin-bottom: 2.2rem;
+  }
+
+  &__projects {
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
+
+    @media (max-width: 1330px) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 870px) {
+      grid-template-columns: none;
+      
+    }
+
+  
+  }
+}

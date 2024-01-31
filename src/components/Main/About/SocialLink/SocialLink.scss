@@ -1,0 +1,22 @@
+.social-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  padding: 1.2rem;
+  border: 1px solid var(--light-gray);
+  transition: all 0.3s;
+
+
+  &:hover {
+    border-color: var(--font-color);
+    svg {
+      scale: 1.2;
+      color: var(--primary-color);
+    }
+  }
+  svg {
+    color: var(--light-gray);
+    transition: all 0.3s;
+  }
+}

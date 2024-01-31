@@ -1,0 +1,33 @@
+.switch-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: none;
+  font-size: 12px;
+  background: var(--background);
+  color: var(--font-color);
+  padding: .5rem 1rem;
+  border: 1px solid var(--gray);
+  border-radius: 0 0 8px 8px;
+  border-top: none;
+  cursor: pointer;
+
+  &__switch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .switch {
+      width: 100%;
+      margin-top: .6rem;
+      .react-switch-bg {
+        div {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+
+}
+
