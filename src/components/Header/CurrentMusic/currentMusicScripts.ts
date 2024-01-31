@@ -16,7 +16,7 @@ export const getAccessToken = async (
   refresh_token: string
 ) => {
   //Creates a base64 code of client_id:client_secret as required by the API
-  const basic = Buffer.from(`${client_id}:${client_secret}`).toString("base64");
+  const basic = btoa(`${client_id}:${client_secret}`);
 
   //The response will contain the access token
   const response = await fetch(TOKEN_ENDPOINT, {
