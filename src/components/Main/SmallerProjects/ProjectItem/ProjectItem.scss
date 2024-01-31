@@ -7,6 +7,10 @@
   border: 1px solid var(--gray);
   overflow: hidden;
   background-color: var(--background);
+
+  @media (max-width: 470px) {
+    display: block;
+  }
   
   &__header {
     grid-column: 1 / 5;
@@ -35,6 +39,11 @@
       filter: grayscale(1);
       transition: .3s;
       clip-path: polygon(30% 0, 100% 0%, 100% 100%, 0% 100%);
+
+      @media (max-width: 470px) {
+        clip-path: none;
+
+      }
     }
 
     

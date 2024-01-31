@@ -20,5 +20,9 @@
     font-size: 1.6rem;
     border-right: 1px solid var(--gray);
     padding: 2rem;
+
+    @media (max-width: 470px) {
+      padding: 1rem;
+    }
   }
 }
