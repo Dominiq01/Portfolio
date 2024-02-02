@@ -51,8 +51,8 @@ const Header: React.FC<HeaderProps> = ({ title }) => {
       <div className="container">
         <header className="header center">
           <motion.h1 variants={container} animate="show" initial="hidden">
-            {title.split("").map((el) => (
-              <motion.span key={el} variants={letter}>
+            {title.split("").map((el, i) => (
+              <motion.span key={el + i} variants={letter}>
                 {el}
               </motion.span>
             ))}

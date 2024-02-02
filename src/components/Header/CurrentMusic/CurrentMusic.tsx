@@ -1,5 +1,5 @@
 import "./CurrentMusic.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { HiOutlinePauseCircle } from "react-icons/hi2";
 import { HiOutlineStatusOffline } from "react-icons/hi";
 import { BiErrorCircle } from "react-icons/bi";
@@ -26,7 +26,7 @@ type NowPlaying = {
 };
 
 const variants = {
-  hidden: { opacity: 0, y: -10},
+  hidden: { opacity: 0, y: -10 },
   show: {
     y: 0,
     opacity: 1,
@@ -37,9 +37,50 @@ const variants = {
   },
 };
 
+const titleVariants = {
+  animate: (custom: any) => ({
+    x: [-custom.maxScroll, 0],
+    transition: {
+      x: {
+        repeat: Infinity,
+        repeatType: "mirror",
+        duration: custom.duration,
+        ease: "linear",
+        repeatDelay: 2,
+      },
+    },
+  }),
+};
+
 const CurrentMusic = () => {
   const [nowPlaying, setNowPlaying] = useState<NowPlaying>();
   const [error, setError] = useState("");
+  const titleRef = useRef(null);
+  const [titleWidth, setTitleWidth] = useState(0);
+  const [containerWidth, setContainerWidth] = useState(0);
+
+  let maxScroll =
+    titleWidth > containerWidth ? Math.max(0, titleWidth - containerWidth) : 0;
+
+  let duration = (maxScroll + titleWidth) / 65;
+
+  useEffect(() => {
+    const updateWidths = () => {
+      const container = document.querySelector(".current-music__details");
+      const titleElement = titleRef.current;
+      if (container && titleElement) {
+        // @ts-ignore
+        setContainerWidth(container?.offsetWidth);
+        // @ts-ignore
+        setTitleWidth(titleElement?.offsetWidth);
+      }
+    };
+
+    window.addEventListener("resize", updateWidths);
+    updateWidths();
+
+    return () => window.removeEventListener("resize", updateWidths);
+  }, [titleRef, nowPlaying]);
 
   useEffect(() => {
     const fetchNowPlaying = async () => {
@@ -83,10 +124,12 @@ const CurrentMusic = () => {
     title = "Dominik is";
     artist = "currently Offline";
   } else {
+    playerState = "ERROR";
     title = "Something went wrong";
     artist = "try again later";
   }
 
+  const userPlayOrPause = playerState === "PLAY" || playerState === "PAUSE";
   return (
     <motion.div
       className="current-music"
@@ -95,7 +138,7 @@ const CurrentMusic = () => {
       animate="show"
     >
       <div className="current-music__image">
-        {playerState === "PLAY" || playerState === "PAUSE" ? (
+        {userPlayOrPause ? (
           <a href={nowPlaying?.songUrl} target="_blank">
             <img src={albumImageUrl} alt="Album" />
           </a>
@@ -104,21 +147,25 @@ const CurrentMusic = () => {
         )}
       </div>
       <div className="current-music__details">
-        <div
+        <motion.div
           className={`current-music__title ${
             title.length > 15 ? "marquee-content" : " "
           }`}
+          /* @ts-ignore */
+          variants={titleVariants}
+          animate={playerState !== "OFFLINE" ? "animate" : "initial"}
+          custom={{ maxScroll, duration }}
         >
-          {playerState === "PLAY" || playerState === "PAUSE" ? (
-            <a href={nowPlaying?.songUrl} target="_blank">
+          {userPlayOrPause ? (
+            <motion.a ref={titleRef} href={nowPlaying?.songUrl} target="_blank">
               {title}
-            </a>
+            </motion.a>
           ) : (
             title
           )}
-        </div>
+        </motion.div>
         <div className="current-music__artist">
-          {playerState === "PLAY" || playerState === "PAUSE" ? (
+          {userPlayOrPause ? (
             <a href={nowPlaying?.artistUrl} target="_blank">
               {artist}
             </a>
