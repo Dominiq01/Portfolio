@@ -63,13 +63,13 @@ const About = () => {
         experience with React, TypeSript, Redux, Scss and Figma.
       </motion.p>
       <motion.p variants={textItem}>
-        I love working out, and the gym is my second home. I also train MMA and
+        I love working out, and the gym is my second home. I also train running and
         enjoy watching Formula 1.
       </motion.p>
       <div className="sign">
         <SignIcon />
         <motion.a
-          href="https://drive.google.com/file/d/1uKmCSUEMtNzR0fU30MSSPeTojVS9scQ8/view"
+          href="/Dominik_Wędzina_CV.pdf" 
           target="_blank"
           download="Dominik Wędzina CV"
           className="about__download-btn"
